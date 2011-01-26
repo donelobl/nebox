@@ -91,11 +91,7 @@ $(document).ready(function() {
 function nebox_blog_admin()
 {
 	function nebox_blog_admin_head()
-	{ 
-		//_e ('<link rel="stylesheet" type="text/css" href="'.plugurl().'css/boxes_style.css">');
-		//_e ('<script type="text/javascript" src="'.plugurl().'js/jquery-1.4.2.min.js"></script>');
-		//_e ('<script type="text/javascript" src="'.plugurl().'js/tipsy.js"></script>');
-		//_e ('<script type="text/javascript" src="'.plugurl().'js/boxes_js.js"></script>');
+	{
 	}
 	include (dirname(__FILE__).'/nebox_blog_admin.php');
 }
