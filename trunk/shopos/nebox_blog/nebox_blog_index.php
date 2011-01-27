@@ -24,7 +24,7 @@ if ((isset($_GET['b_cat']) && is_numeric($_GET['b_cat']))) {
 			c.id = ".(int)$_GET['b_cat']." AND
 			p.categories_id = ".(int)$_GET['b_cat']."
 		ORDER BY
-			p.position DESC
+			p.position, p.id DESC
 	";
 	$breadcrumb->add($posts['cat_title'], NEBOX_BLOG_URL.'&b_cat='.$_GET['b_cat']);
 	$osTemplate->assign('navtrail', $breadcrumb->trail(' &raquo; '));
@@ -174,69 +174,4 @@ $osTemplate->caching = 0;
 $template = (file_exists(_THEMES_C.FILENAME_ARTICLES.'.html') ? CURRENT_TEMPLATE.'/'.FILENAME_ARTICLES.'.html' : CURRENT_TEMPLATE.'/index.html');
 $osTemplate->load_filter('output', 'trimhitespace');
 $osTemplate->display($template);
-
-
-
-/*INFOCENTER_MODUL_ON == 'false' && */
-/*
-if (isset($_GET['blog']))
-{
-	if (isset($_GET['blog']) && is_numeric($_GET['blog']))
-	{
-		$start_query = os_db_query("SELECT titel, description FROM ".DB_NEBOX_BLOG_CATEGORY." WHERE id = '".(int)$_GET['blog']."'");
-		$categorie_name = os_db_fetch_array($start_query);
-
-		$osTemplate->assign('CATNAME', $categorie_name['titel']);
-		$osTemplate->assign('TEXT', $categorie_name['description']);
-
-		if (!isset($_GET['item']))
-		{
-			$item = 0;
-			$items_query = os_db_query("SELECT id, title FROM ".DB_NEBOX_BLOG_POSTS." WHERE status = 1 AND categories_id = '".(int)$_GET['blog']."' ORDER BY position ASC");  
-
-			while ($items = os_db_fetch_array($items_query))
-			{
-				$categorie_array[$item] = array
-				(
-					'ITEM_ID'     => $items['id'],
-					'ITEM_TITLE'  => $items['title'],
-					'ITEM_LINK'   => os_href_link(FILENAME_INFOCENTER.'?blog='.(int)$_GET['blog'].'&item='.$items['id'])
-				);
-				$item++;  
-			}
-			if ($item > 0)
-			{
-				$osTemplate->assign('FLAGCATLEVEL2', 'flagcatlevel2');
-			}
-			$osTemplate->assign('ITEMS1', $categorie_array);
-		}
-	}
-	elseif (!is_numeric($_GET['blog']))
-	{
-		$osTemplate->assign('FLAGINFOSTART', 'startseite');
-		
-		$start_query = os_db_query("SELECT description FROM ".DB_NEBOX_BLOG_WELCOME." WHERE id = 1");
-		$start = os_db_fetch_array($start_query);
-		$osTemplate->assign('TEXT', $start['description']);
-	}
-
-	if ((isset($_GET['blog']) && is_numeric($_GET['blog'])) && (isset($_GET['item'])&& is_numeric($_GET['item'])))
-	{
-		$select_item_query = os_db_query("SELECT title, name, description FROM ".DB_NEBOX_BLOG_POSTS." WHERE status = 1 AND id = '".(int)$_GET['item']."' AND categories_id = '".(int)$_GET['blog']."'");
-		$select_item = os_db_fetch_array($select_item_query);  
-
-		$osTemplate->assign('NAME', $select_item['name']);
-		$osTemplate->assign('TITEL', $select_item['title']);
-		$osTemplate->assign('TEXT', $select_item['description']);
-	}
- 
-}
-elseif (!isset($_GET['blog']))
-{
-	$osTemplate->assign('TEXT', 'Oops.');
-	$osTemplate->assign('language', $_SESSION['language']);
-}
-*/
-
-
 ?>
