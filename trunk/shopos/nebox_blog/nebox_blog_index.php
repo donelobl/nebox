@@ -24,7 +24,7 @@ if ((isset($_GET['b_cat']) && is_numeric($_GET['b_cat']))) {
 			c.id = ".(int)$_GET['b_cat']." AND
 			p.categories_id = ".(int)$_GET['b_cat']."
 		ORDER BY
-			p.position, p.id DESC
+			p.position DESC
 	";
 	/*
 	$split = new splitPageResults($posts_query, $_GET['page'], NBBS_NUMBER_OF_POSTS, 'b_cat');
