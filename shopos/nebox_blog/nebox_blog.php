@@ -2,7 +2,7 @@
 /*
 Plugin Name: NeBox Blog
 Plugin URI: http://www.nebox.ru/
-Description: NeBox Blog
+Description: Плагин блога
 Version: 1.1
 Author: NeBox (Посетить блог)
 Author URI: http://www.nebox.ru/
@@ -37,7 +37,7 @@ else
 
 define("DB_NEBOX_BLOG_CATEGORY", DB_PREFIX."nebox_blog_category");
 define("DB_NEBOX_BLOG_POSTS", DB_PREFIX."nebox_blog_posts");
-define("DB_NEBOX_BLOG_COMMETS", DB_PREFIX."nebox_blog_comments");
+define("DB_NEBOX_BLOG_COMMENTS", DB_PREFIX."nebox_blog_comments");
 define("DB_NEBOX_BLOG_WELCOME", DB_PREFIX."nebox_blog_welcome");
 
 add_action('page', 'blog');
@@ -110,10 +110,7 @@ function nebox_blog_admin()
 {
 	function nebox_blog_admin_head()
 	{ 
-		//_e ('<link rel="stylesheet" type="text/css" href="'.plugurl().'css/boxes_style.css">');
-		//_e ('<script type="text/javascript" src="'.plugurl().'js/jquery-1.4.2.min.js"></script>');
-		//_e ('<script type="text/javascript" src="'.plugurl().'js/tipsy.js"></script>');
-		//_e ('<script type="text/javascript" src="'.plugurl().'js/boxes_js.js"></script>');
+		// Empty
 	}
 	include (dirname(__FILE__).'/nebox_blog_admin.php');
 }
@@ -190,7 +187,7 @@ function blog_url_readonly()
 {
 	_e('
 		<center>
-			<br /><a href="'.http_path('catalog').'index.php?page=blog'.'" target="_blank"><strong>Ссылка на ваш блог</a></strong><br /><br />
+			<br /><a href="'.http_path('catalog').NEBOX_BLOG_URL.'" target="_blank"><strong>Ссылка на ваш блог</a></strong><br /><br />
 		</center>
 	');
 }
