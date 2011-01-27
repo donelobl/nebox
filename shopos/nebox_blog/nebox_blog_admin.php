@@ -308,7 +308,6 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 <?php 
   if($_GET['action'] == 'newcategorie' || $_GET['action'] == 'editcategories'){
     echo os_draw_form('categorie', FILENAME_PLUGINS_PAGE, 'page=nebox_blog_admin&action=insertcategorie', 'post', '');
-    
 ?>
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 <?php
@@ -342,8 +341,8 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 		<td class="blog-table blog-table-left">Статус</td>
 		<td class="blog-table blog-table-right">
 			<select class="round" name="status" id="status">
-				<option value="1" <?php if ($cat_edit['status'] == '1') {echo "selected";} ?>>Включено</option>
-				<option value="0" <?php if ($cat_edit['status'] == '0') {echo "selected";} ?>>Выключено</option>
+				<option value="1" <?php if ($cat_edit['status'] == '1') {echo "selected";} ?>><?php echo NBB_TABLE_FOOTER_STATUS_2 ?></option>
+				<option value="0" <?php if ($cat_edit['status'] == '0') {echo "selected";} ?>><?php echo NBB_TABLE_FOOTER_STATUS_1 ?></option>
 			</select>
 		</td>
 	</tr>
@@ -531,8 +530,8 @@ elseif ($_GET['action'] == 'editpost' || $_GET['action'] == 'newpost')
 		<td class="blog-table blog-table-left">Статус</td>
 		<td class="blog-table blog-table-right">
 			<select class="round" name="status" id="status">
-				<option value="1" <?php if ($post['post_status'] == '1') {echo "selected";} ?>>Включено</option>
-				<option value="0" <?php if ($post['post_status'] == '0') {echo "selected";} ?>>Выключено</option>
+				<option value="1" <?php if ($post['post_status'] == '1') {echo "selected";} ?>><?php echo NBB_TABLE_FOOTER_STATUS_2 ?></option>
+				<option value="0" <?php if ($post['post_status'] == '0') {echo "selected";} ?>><?php echo NBB_TABLE_FOOTER_STATUS_1 ?></option>
 			</select>
 		</td>
 	</tr>
