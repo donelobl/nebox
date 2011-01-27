@@ -138,7 +138,7 @@ elseif ((isset($_GET['b_post']) && is_numeric($_GET['b_post'])))
 
 		$comment_sorting = $com_sort == 1 ? "ASC" : "DESC";
 
-		$com_query = os_db_query("SELECT * FROM ".DB_NEBOX_BLOG_COMMETS." WHERE post_id = ".$_GET['b_post']." ORDER BY date_added ".$comment_sorting." LIMIT ".$com_limit."");
+		$com_query = os_db_query("SELECT * FROM ".DB_NEBOX_BLOG_COMMENTS." WHERE post_id = ".$_GET['b_post']." ORDER BY date_added ".$comment_sorting." LIMIT ".$com_limit."");
 
 		// Получаем имя юзера по сессии, чтобы заполнить в форме поле name
 		if (isset($s_cid))

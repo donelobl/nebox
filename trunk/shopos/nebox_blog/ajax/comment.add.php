@@ -43,7 +43,7 @@ $comname = trim(strip_tags($comname));
 $comtext = str_replace("\n","<br />\n",$comtext);
 
 if($error == "no") {
-	os_db_query("INSERT INTO ".DB_NEBOX_BLOG_COMMETS." VALUES ('','$post_id','$comname','$comtext',now(),'$comment_status','$current_user')");
+	os_db_query("INSERT INTO ".DB_NEBOX_BLOG_COMMENTS." VALUES ('','$post_id','$comname','$comtext',now(),'$comment_status','$current_user')");
 
 	$_RESULT['err'] = 'no';
 

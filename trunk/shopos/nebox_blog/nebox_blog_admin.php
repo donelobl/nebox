@@ -44,12 +44,12 @@ switch($_GET['action'])
 		{
 			if ($_GET['delete_comment'])
 			{
-				$delete = os_db_query("DELETE FROM ".DB_NEBOX_BLOG_COMMETS." WHERE id = '".(int)$_GET['delete_comment']."'");
+				$delete = os_db_query("DELETE FROM ".DB_NEBOX_BLOG_COMMENTS." WHERE id = '".(int)$_GET['delete_comment']."'");
 				os_redirect($nbb_url.'&action=comments_list');
 			}
 			if ($_GET['delete_comment_all']=='true')
 			{
-				os_db_query("truncate ".DB_NEBOX_BLOG_COMMETS."");
+				os_db_query("truncate ".DB_NEBOX_BLOG_COMMENTS."");
 				os_redirect($nbb_url.'&action=comments_list');
 			}
 		}
@@ -428,7 +428,7 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 					p.id,
 					p.name 
 				FROM 
-					".DB_NEBOX_BLOG_COMMETS." AS c,
+					".DB_NEBOX_BLOG_COMMENTS." AS c,
 					".DB_NEBOX_BLOG_POSTS." AS p
 				WHERE 
 					c.post_id = p.id 
