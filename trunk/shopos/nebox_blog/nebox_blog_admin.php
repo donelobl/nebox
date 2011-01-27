@@ -289,7 +289,7 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 .blog-table-list {padding:5px;font-size:0.9em;background:#ffffff;border-bottom:1px solid #b6cddb;}
 .blr {border-right:1px solid #b6cddb;}
 
-.mod-copy {display:none;font-size:0.7em;text-align:right;padding:10px;}
+.mod-copy {font-size:0.7em;text-align:center;padding:10px;}
 .mod-copy a {font-size:1em;}
 </style>
 
@@ -652,7 +652,12 @@ while ($cat = os_db_fetch_array($cat_query))
 
 
 
-		<div class="mod-copy">Адаптация под ShopOS - <a href="http://templatica.ru" target="_blank">NeBox</a></div>
+		<div class="mod-copy">
+<?php echo NBB_HEADING_TITLE.NBBV; ?><br />
+В случае всяких проблем - ICQ: 501760, E-mail: templatica.ru@gmail.com<br />
+Плагин реализовал <a href="http://www.shopos.ru/forum/index.php?action=profile;u=2176" target="_blank" title="Мой профиль на форуме">NeBox</a><br />
+Сайты: <a href="http://nebox.ru" target="_blank" title="Мой блог NeBox.ru">Мой блог</a> и <a href="http://templatica.ru" target="_blank" title="Моя студия Templatica.ru">Моя студия</a></div>
+		</div>
 	</div>
 </div>
 

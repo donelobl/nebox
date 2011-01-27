@@ -3,19 +3,37 @@
 Plugin Name: NeBox Blog
 Plugin URI: http://www.nebox.ru/
 Description: NeBox Blog
-Version: 1.0
+Version: 1.1
 Author: NeBox (Посетить блог)
 Author URI: http://www.nebox.ru/
 Plugin Group: Плагины NeBox.ru
 */
 
-define("NBBV",' v1.0');
+define("NBBV",' v1.1 beta');
 define("NBB_PLUGIN",plugdir().'/');
-define("NEBOX_BLOG_URL", "index.php?page=blog");
 
-/* Simple Setting */
+/* Simple Setting
+---------------------------------------------------*/
+
+// Постов на странице
 define("NBBS_NUMBER_OF_POSTS", 5);
+
+// Шаблон блога
 define("NBBS_THEME", "default");
+
+// ЧПУ ссылки
+define("NBBS_SEF", true);
+
+/*---------------------------------------------------*/
+
+if (NBBS_SEF == true)
+{
+	define("NEBOX_BLOG_URL", "blog.html");
+}
+else
+{
+	define("NEBOX_BLOG_URL", "index.php?page=blog");
+}
 
 define("DB_NEBOX_BLOG_CATEGORY", DB_PREFIX."nebox_blog_category");
 define("DB_NEBOX_BLOG_POSTS", DB_PREFIX."nebox_blog_posts");
@@ -32,7 +50,7 @@ add_action('box','nebox_blog_box_new');
 
 function nebox_blog_head() {
 	_e('<link rel="stylesheet" type="text/css" href="'.plugurl().'themes/'.NBBS_THEME.'/css/blog_style.css" />');
-	_e('<script src="'.plugurl().'js/jquery.js" type="text/javascript"></script>');
+	//_e('<script src="'.plugurl().'js/jquery.js" type="text/javascript"></script>');
 	_e('<script src="'.plugurl().'js/comm.js" type="text/javascript"></script>');
 	_e('<script type="text/javascript" >
 	function addComment(){
@@ -91,7 +109,11 @@ $(document).ready(function() {
 function nebox_blog_admin()
 {
 	function nebox_blog_admin_head()
-	{
+	{ 
+		//_e ('<link rel="stylesheet" type="text/css" href="'.plugurl().'css/boxes_style.css">');
+		//_e ('<script type="text/javascript" src="'.plugurl().'js/jquery-1.4.2.min.js"></script>');
+		//_e ('<script type="text/javascript" src="'.plugurl().'js/tipsy.js"></script>');
+		//_e ('<script type="text/javascript" src="'.plugurl().'js/boxes_js.js"></script>');
 	}
 	include (dirname(__FILE__).'/nebox_blog_admin.php');
 }
@@ -197,7 +219,14 @@ function nebox_blog_box()
 			$blog_cat_url_current = "";
 		}
 
-		$blog_cat_url = NEBOX_BLOG_URL.'&b_cat='.$blog_box['id'];
+		if (NBBS_SEF == true)
+		{
+			$blog_cat_url = _HTTP.'blog/cat/'.$blog_box['id'].'.html';
+		}
+		else
+		{
+			$blog_cat_url = _HTTP.'index.php?page=blog&b_cat='.$blog_box['id'];
+		}
 
 		$box_content[] = array
 		(
@@ -236,8 +265,15 @@ function nebox_blog_box_new()
 	$blog_box_query = os_db_query("SELECT id,title FROM ".DB_NEBOX_BLOG_POSTS." WHERE status = 1 ORDER BY id DESC LIMIT 10");
 
 	while($blog_box = os_db_fetch_array($blog_box_query, true)) {
-
-		$blog_post_url = NEBOX_BLOG_URL.'&b_post='.$blog_box['id'];
+	
+		if (NBBS_SEF == true)
+		{
+			$blog_post_url = _HTTP.'blog/post/'.$blog_box['id'].'.html';
+		}
+		else
+		{
+			$blog_post_url = _HTTP.'index.php?page=blog&b_post='.$blog_box['id'];
+		}
 
 		$box_content[] = array
 		(
@@ -264,4 +300,35 @@ function nebox_blog_box_new()
 	}
 	$osTemplate->assign('NEBOX_BLOG_BOX_NEW', $_box_value);
 }
+
+
+/*
+Кейсы для modules\metatags.php
+case (isset($_GET['b_post'])):
+
+	// высасываем титл топика
+	$blog_meta_query = osDBquery("SELECT id, m_title, m_desc, m_keywords FROM ".DB_NEBOX_BLOG_POSTS." WHERE id='".(int)$_GET['b_post']."'");
+	$blog_meta = os_db_fetch_array($blog_meta_query, true);
+
+	$_title  = $blog_meta['m_title'] . ' - ' . TITLE;
+	$_description  = $blog_meta['m_desc'];
+	$_keywords  = $blog_meta['m_keywords'];
+	break;
+
+case (isset($_GET['b_cat'])):
+
+	// высасываем титл топика
+	$blog_cat_meta_query = osDBquery("SELECT id, m_title, m_desc, m_keywords FROM ".DB_NEBOX_BLOG_CATEGORY." WHERE id='".(int)$_GET['b_cat']."'");
+	$blog_cat_meta = os_db_fetch_array($blog_cat_meta_query, true);
+
+	$_title  = $blog_cat_meta['m_title'] . ' - ' . TITLE;
+	$_description  = $blog_cat_meta['m_desc'];
+	$_keywords  = $blog_cat_meta['m_keywords'];
+	break;
+
+Добавить в .htaccess
+RewriteRule ^blog.html /index.php?page=blog [L]
+RewriteRule ^blog/post/([0-9]*)\.html$ /index.php?page=blog&b_post=$1 [L]
+RewriteRule ^blog/cat/([0-9]*)\.html$ /index.php?page=blog&b_cat=$1 [L]
+*/
 ?>

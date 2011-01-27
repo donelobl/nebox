@@ -4,11 +4,11 @@
 {if $ONE}
 	<ul class="news-list">
 		<li>
-			<a class="n-title" href="/index.php?page=blog&b_post={$POST_ID}">{$POST_NAME}</a>
+			<a class="n-title" href="{$POST_URL}">{$POST_NAME}</a>
 			<div class="n-data">
 				{$POST_DATE} | 
-				<a href="/index.php?page=blog&b_cat={$CAT_ID}">{$CAT_TITLE}</a> | 
-				Комментариев <a href="/index.php?page=blog&b_post={$POST_ID}#comments">{$COM_COUNT}</a>
+				<a href="{$CAT_URL}">{$CAT_TITLE}</a> | 
+				Комментариев <a href="{$POST_URL}#comments">{$COM_COUNT}</a>
 			</div>
 			<div class="n-content">{$POST_DESC}</div>
 		</li>
@@ -28,7 +28,7 @@
 								{$com_data.COM_DELETE}
 								Пишет <span class="bold">{$com_data.COM_USER}</span> 
 								({$com_data.COM_USER_S}) 
-								<a href="/index.php?page=blog&b_post={$POST_ID}#com{$com_data.COM_ID}">{$com_data.COM_DATA}</a>
+								<a href="{$POST_URL}#com{$com_data.COM_ID}">{$com_data.COM_DATA}</a>
 							</div>
 							<div class="comment-content">
 								{$com_data.COM_TEXT}
@@ -89,10 +89,10 @@
 		<ul class="news-list">
 			{foreach name=aussen item=module_data from=$module_content}
 			<li>
-				<a class="n-title" href="/index.php?page=blog&b_post={$module_data.POST_ID}">{$module_data.POST_NAME}</a>
+				<a class="n-title" href="{$module_data.POST_URL}">{$module_data.POST_NAME}</a>
 				<div class="n-data">
 					{$module_data.POST_DATE} | 
-					<a href="/index.php?page=blog&b_cat={$module_data.CAT_ID}">{$module_data.CAT_TITLE}</a>
+					<a href="{$module_data.CAT_URL}">{$module_data.CAT_TITLE}</a>
 				</div>
 				<div class="n-content">{$module_data.POST_SHORT_DESC}</div>
 			</li>

@@ -26,10 +26,6 @@ if ((isset($_GET['b_cat']) && is_numeric($_GET['b_cat']))) {
 		ORDER BY
 			p.position, p.id DESC
 	";
-	$breadcrumb->add($posts['cat_title'], NEBOX_BLOG_URL.'&b_cat='.$_GET['b_cat']);
-	$osTemplate->assign('navtrail', $breadcrumb->trail(' &raquo; '));
-
-	$module_content = array();
 	/*
 	$split = new splitPageResults($posts_query, $_GET['page'], NBBS_NUMBER_OF_POSTS, 'b_cat');
 	$query = os_db_query($split->sql_query);
@@ -40,21 +36,45 @@ if ((isset($_GET['b_cat']) && is_numeric($_GET['b_cat']))) {
 	}
 	*/
 	$query = os_db_query($posts_query);
+
+	$navtrail_cat_query = os_db_query("SELECT id, title FROM ".DB_NEBOX_BLOG_CATEGORY." WHERE id = '".(int)$_GET['b_cat']."'"); 
+	$navtrail_cat = os_db_fetch_array($navtrail_cat_query);
+
+	if (NBBS_SEF == true)
+	{
+		$cat_url = _HTTP.'blog/cat/'.$navtrail_cat['id'].'.html';
+	}
+	else
+	{
+		$cat_url = _HTTP.'index.php?page=blog&b_cat='.$navtrail_cat['id'];
+	}
+
+	$breadcrumb->add($navtrail_cat['title'], $cat_url);
+	$osTemplate->assign('navtrail', $breadcrumb->trail(' &raquo; '));
+
+	$module_content = array();
 	while ($posts = os_db_fetch_array($query,true))
 	{
 
-		//$com_query = os_db_query("SELECT * FROM ".DB_NEBOX_BLOG_COMMETS." WHERE post_id = ".$posts['post_id']."");
-		//$com_count = os_db_num_rows($com_query);
+		if (NBBS_SEF == true)
+		{
+			$post_url = _HTTP.'blog/post/'.$posts['post_id'].'.html';
+			$cat_url = _HTTP.'blog/cat/'.$posts['cat_id'].'.html';
+		}
+		else
+		{
+			$post_url = _HTTP.'index.php?page=blog&b_post='.$posts['post_id'];
+			$cat_url = _HTTP.'index.php?page=blog&b_cat='.$posts['cat_id'];
+		}
 	
 		$module_content[]=array
 		(
-			'POST_ID'  => $posts['post_id'],
 			'POST_NAME'  => $posts['post_name'],
 			'POST_SHORT_DESC'  => $posts['post_short_description'],
 			'POST_DATE'  => $posts['post_date'],
-			'CAT_ID' => $posts['cat_id'],
 			'CAT_TITLE' => $posts['cat_title'],
-			'COM_COUNT' => $com_count
+			'POST_URL' => $post_url,
+			'CAT_URL' => $cat_url
 		);
 	}
 }
@@ -80,24 +100,38 @@ elseif ((isset($_GET['b_post']) && is_numeric($_GET['b_post'])))
 		LIMIT 1
 	");
 	$posts = os_db_fetch_array($posts_query);
+	
+	if (NBBS_SEF == true)
+	{
+		$post_url = _HTTP.'blog/post/'.$posts['post_id'].'.html';
+		$cat_url = _HTTP.'blog/cat/'.$posts['cat_id'].'.html';
+	}
+	else
+	{
+		$post_url = _HTTP.'index.php?page=blog&b_post='.$posts['post_id'];
+		$cat_url = _HTTP.'index.php?page=blog&b_cat='.$posts['cat_id'];
+	}
 
-	// Хлебные крошки
-	$breadcrumb->add($posts['post_name'], NEBOX_BLOG_URL.'&b_post='.$_GET['b_post']);
+	$breadcrumb->add($posts['post_name'], $post_url);
 	$osTemplate->assign('navtrail', $breadcrumb->trail(' &raquo; '));
 
 	$osTemplate->assign('POST_ID', $posts['post_id']);
 	$osTemplate->assign('POST_NAME', $posts['post_name']);
 	$osTemplate->assign('POST_DESC', $posts['post_description']);
 	$osTemplate->assign('POST_DATE', $posts['post_date']);
-	$osTemplate->assign('CAT_ID', $posts['cat_id']);
 	$osTemplate->assign('CAT_TITLE', $posts['cat_title']);
+	$osTemplate->assign('POST_URL', $post_url);
+	$osTemplate->assign('CAT_URL', $cat_url);
 
 	if (!empty($_GET['b_post'])) {
 
 		// Настройки
-		$show_form		=	'true';		// Показывать форму добавления комментариев
-		$com_limit		=	'100';		// Количество комментариев в списке
-		$com_sort		=	'1';		// Сортировка комментариев: 1 - новые внизу, 0 - новые вверху
+		// Показывать форму добавления комментариев
+		$show_form		=	'true';
+		// Количество комментариев в списке
+		$com_limit		=	100;
+		// Сортировка комментариев: 1 - новые внизу, 0 - новые вверху
+		$com_sort		=	1;
 
 		$s_cid = $_SESSION['customer_id'];
 		$s_aid = $_SESSION['customers_status']['customers_status_id'];
