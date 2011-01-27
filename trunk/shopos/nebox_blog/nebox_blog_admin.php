@@ -191,44 +191,33 @@ switch($_GET['action'])
 
 	if ($_POST['post_id'] == '')
 	{
-		$next_query = os_db_query("SELECT MAX(id) AS ID FROM ".DB_NEBOX_BLOG_POSTS);
-		$next_id = os_db_fetch_array($next_query);
+		$categories_id		= $_POST['categories_id'];
+		$title				= $_POST['title'];
+		$name				= $_POST['name'];
+		$short_description	= $_POST['short_description'];
+		$description		= $_POST['description'];
+		$status				= $_POST['status'];
+		$position			= $_POST['position'];
+		$m_title			= $_POST['post_m_title'];
+		$m_desc				= $_POST['post_m_desc'];
+		$m_keywords			= $_POST['post_m_keywords'];
 
-		$new_post_array = array
-		(
-			'categories_id'		=> os_db_prepare_input($_POST['categories_id']),
-			'title'				=> os_db_prepare_input($_POST['title']),
-			'name'				=> os_db_prepare_input($_POST['name']),
-			'short_description'	=> os_db_prepare_input($_POST['short_description']),
-			'description'		=> os_db_prepare_input($_POST['description']),
-			'status'			=> os_db_prepare_input($_POST['status']),
-			'position'			=> os_db_prepare_input($_POST['position']),
-			'date_added'		=> os_db_prepare_input(nov()),
-			'm_title'			=> os_db_prepare_input($_POST['post_m_title']),
-			'm_desc'			=> os_db_prepare_input($_POST['post_m_desc']),
-			'm_keywords'		=> os_db_prepare_input($_POST['post_m_keywords'])
-		);
-
-		os_db_perform(DB_NEBOX_BLOG_POSTS, $new_post_array);
+		os_db_query("INSERT INTO ".DB_NEBOX_BLOG_POSTS." (categories_id, title, name, short_description, description, status, position, date_added, m_title,m_desc, m_keywords) VALUES ('{$categories_id}','{$title}','{$name}','{$short_description}','{$description}','{$status}', '{$position}', now(),'{$m_title}','{$m_desc}','{$m_keywords}')");
 	// UPDATE  
 	}
 	elseif ($_POST['post_id'] != '')
 	{
-		$update_post_array = array
-		(
-			'categories_id'		=> os_db_prepare_input($_POST['categories_id']),
-			'title'				=> os_db_prepare_input($_POST['title']),
-			'name'				=> os_db_prepare_input($_POST['name']),
-			'short_description'	=> os_db_prepare_input($_POST['short_description']),
-			'description'		=> os_db_prepare_input($_POST['description']),
-			'status'			=> os_db_prepare_input($_POST['status']),
-			'position'			=> os_db_prepare_input($_POST['position']),
-			'date_added'		=> os_db_prepare_input(nov()),
-			'm_title'			=> os_db_prepare_input($_POST['post_m_title']),
-			'm_desc'			=> os_db_prepare_input($_POST['post_m_desc']),
-			'm_keywords'		=> os_db_prepare_input($_POST['post_m_keywords'])
-		);
-		os_db_perform(DB_NEBOX_BLOG_POSTS, $update_post_array, 'update', "id = '".$_POST['post_id']."' ");
+		$categories_id		= $_POST['categories_id'];
+		$title				= $_POST['title'];
+		$name				= $_POST['name'];
+		$short_description	= $_POST['short_description'];
+		$description		= $_POST['description'];
+		$status				= $_POST['status'];
+		$position			= $_POST['position'];
+		$m_title			= $_POST['post_m_title'];
+		$m_desc				= $_POST['post_m_desc'];
+		$m_keywords			= $_POST['post_m_keywords'];
+		os_db_query("UPDATE ".DB_NEBOX_BLOG_POSTS." SET categories_id = '$categories_id', title = '$title', name = '$name', short_description = '$short_description', description = '$description', status = '$status', position = '$position', date_added = now(), m_title = '$m_title',m_desc = '$m_desc', m_keywords = '$m_keywords' WHERE id = ".$_POST['post_id']."");
 	}
 	os_redirect($nbb_url.'&action=showposts&cat='.$_POST['categories_id']);
 	break;
