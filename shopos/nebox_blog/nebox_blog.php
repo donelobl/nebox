@@ -300,35 +300,4 @@ function nebox_blog_box_new()
 	}
 	$osTemplate->assign('NEBOX_BLOG_BOX_NEW', $_box_value);
 }
-
-
-/*
-Кейсы для modules\metatags.php
-case (isset($_GET['b_post'])):
-
-	// высасываем титл топика
-	$blog_meta_query = osDBquery("SELECT id, m_title, m_desc, m_keywords FROM ".DB_NEBOX_BLOG_POSTS." WHERE id='".(int)$_GET['b_post']."'");
-	$blog_meta = os_db_fetch_array($blog_meta_query, true);
-
-	$_title  = $blog_meta['m_title'] . ' - ' . TITLE;
-	$_description  = $blog_meta['m_desc'];
-	$_keywords  = $blog_meta['m_keywords'];
-	break;
-
-case (isset($_GET['b_cat'])):
-
-	// высасываем титл топика
-	$blog_cat_meta_query = osDBquery("SELECT id, m_title, m_desc, m_keywords FROM ".DB_NEBOX_BLOG_CATEGORY." WHERE id='".(int)$_GET['b_cat']."'");
-	$blog_cat_meta = os_db_fetch_array($blog_cat_meta_query, true);
-
-	$_title  = $blog_cat_meta['m_title'] . ' - ' . TITLE;
-	$_description  = $blog_cat_meta['m_desc'];
-	$_keywords  = $blog_cat_meta['m_keywords'];
-	break;
-
-Добавить в .htaccess
-RewriteRule ^blog.html /index.php?page=blog [L]
-RewriteRule ^blog/post/([0-9]*)\.html$ /index.php?page=blog&b_post=$1 [L]
-RewriteRule ^blog/cat/([0-9]*)\.html$ /index.php?page=blog&b_cat=$1 [L]
-*/
 ?>
