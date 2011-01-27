@@ -132,56 +132,64 @@ switch($_GET['action'])
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     case 'insertcategorie':
-      
-	// nдchste ID ermitteln
-	if ($_POST['categorie_id'] == '')
+
+	if ($_POST['cat_id'] == '')
 	{
-		$next_query = os_db_query("SELECT MAX(id) AS ID FROM ".DB_NEBOX_BLOG_CATEGORY);
-		$next_id = os_db_fetch_array($next_query);
+		$title			= $_POST['title'];
+		$description	= $_POST['description'];
+		$status			= $_POST['status'];
+		$position		= $_POST['position'];
+		$m_title		= $_POST['m_title'];
+		$m_desc			= $_POST['m_desc'];
+		$m_keywords		= $_POST['m_keywords'];
 
-		$new_categorie_array = array
-		(
-			'title' 	  => os_db_prepare_input($_POST['title']),
-			'position' 	  => os_db_prepare_input($_POST['position']),
-			'description' => os_db_prepare_input($_POST['description'])
-		);
-		os_db_perform(DB_NEBOX_BLOG_CATEGORY, $new_categorie_array);    
-
-	// UPDATE
+		os_db_query("INSERT INTO ".DB_NEBOX_BLOG_CATEGORY." (title, description, status, position, m_title, m_desc, m_keywords) VALUES ('{$title}','{$description}','{$status}','{$position}','{$m_title}','{$m_desc}', '{$m_keywords}')");
 	}
-	elseif ($_POST['categorie_id'] != '')
+	elseif ($_POST['cat_id'] != '')
 	{
-		$categorieID = $_POST['categorie_id'];
+		$categorieID = $_POST['cat_id'];
 
 		$update_categorie_array = array
 		(
-			'title'         => os_db_prepare_input($_POST['title']),
-			'position'      => os_db_prepare_input($_POST['position']),
-			'description'   => os_db_prepare_input($_POST['description'])
+			'title'			=> os_db_prepare_input($_POST['title']),
+			'description'	=> os_db_prepare_input($_POST['description']),
+			'status'		=> os_db_prepare_input($_POST['status']),
+			'position'		=> os_db_prepare_input($_POST['position']),
+			'm_title'		=> os_db_prepare_input($_POST['m_title']),
+			'm_desc'		=> os_db_prepare_input($_POST['m_desc']),
+			'm_keywords'	=> os_db_prepare_input($_POST['m_keywords'])
 		);
-		os_db_perform(DB_NEBOX_BLOG_CATEGORY, $update_categorie_array, 'update', "id = '" . $categorieID . "'");
+		os_db_perform(DB_NEBOX_BLOG_CATEGORY, $update_categorie_array, 'update', "id = '".$categorieID."'");
 	}
 	os_redirect($nbb_url);
 	break;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	case 'updatestartsite':
+	case 'updatewelcome':
 
-	// INSERT
 	if ($_POST['id'] != 1)
 	{
-		$new_start_array = array
+		$new_welcome_array = array
 		(
-			'id' => 1,
-			'description' => os_db_prepare_input($_POST['description'])
+			'id'			=> 1,
+			'description'	=> os_db_prepare_input($_POST['description']),
+			'm_title'		=> os_db_prepare_input($_POST['m_title']),
+			'm_desc'		=> os_db_prepare_input($_POST['m_desc']),
+			'm_keywords'	=> os_db_prepare_input($_POST['m_keywords'])
 		);
-		os_db_perform(DB_NEBOX_BLOG_WELCOME, $new_start_array);  
-
-	// UPDATE	
+		os_db_perform(DB_NEBOX_BLOG_WELCOME, $new_welcome_array);
 	}
 	else
 	{
-		os_db_query("UPDATE ".DB_NEBOX_BLOG_WELCOME." SET description = '".os_db_prepare_input($_POST['description'])."' WHERE id = 1");
+		$update_welcome_array = array
+		(
+			'id'			=> 1,
+			'description'	=> os_db_prepare_input($_POST['description']),
+			'm_title'		=> os_db_prepare_input($_POST['m_title']),
+			'm_desc'		=> os_db_prepare_input($_POST['m_desc']),
+			'm_keywords'	=> os_db_prepare_input($_POST['m_keywords'])
+		);
+		os_db_perform(DB_NEBOX_BLOG_WELCOME, $update_welcome_array, 'update', "id = 1");
 	}
 	os_redirect($nbb_url);
 	break;
@@ -203,7 +211,6 @@ switch($_GET['action'])
 		$m_keywords			= $_POST['post_m_keywords'];
 
 		os_db_query("INSERT INTO ".DB_NEBOX_BLOG_POSTS." (categories_id, title, name, short_description, description, status, position, date_added, m_title,m_desc, m_keywords) VALUES ('{$categories_id}','{$title}','{$name}','{$short_description}','{$description}','{$status}', '{$position}', now(),'{$m_title}','{$m_desc}','{$m_keywords}')");
-	// UPDATE  
 	}
 	elseif ($_POST['post_id'] != '')
 	{
@@ -303,49 +310,49 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
     echo os_draw_form('categorie', FILENAME_PLUGINS_PAGE, 'page=nebox_blog_admin&action=insertcategorie', 'post', '');
     
 ?>
-<table width="100%" border="0" cellpadding="5" cellspacing="1" align="center" style="border-bottom:1px solid #dddddd;">
-<?php 
-	$edit_categorie_query = os_db_query("SELECT * FROM ".DB_NEBOX_BLOG_CATEGORY." WHERE id = '".(int)$_GET['cat']."'");
-	$edit_categorie = os_db_fetch_array($edit_categorie_query);    
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<?php
+	$cat_edit_query = os_db_query("SELECT * FROM ".DB_NEBOX_BLOG_CATEGORY." WHERE id = '".(int)$_GET['cat']."'");
+	$cat_edit = os_db_fetch_array($cat_edit_query); 
 ?>
-  <tr>
-    <td class="uni_content" height="20">&nbsp;</td>
-  </tr>
-  <tr>
-	<td>
-		<table border="0" cellpadding="5" cellspacing="0">
-			<tr>
-				<td width=""><?php echo NBB_TABLE_HEADING_NEWCATEGORIE_NAME;?></td>
-				<td><?php echo os_draw_input_field('title', $edit_categorie['title'],'size="55"');?></td>
-				<td><?php echo NBB_TABLE_HEADING_NEWCATEGORIE_POSITION;?></td>
-				<td><?php echo os_draw_input_field('position', $edit_categorie['position'],'size="4"');?></td>
-			</tr>
-		</table>
-	</td>
-  </tr>
-  <tr>
-    <td valign="top" colspan="1">
-    
-<table width="100%" border="0" cellpadding="3" cellspacing="1" align="center" style="border:1px solid #dddddd;">  
-  <tr>
-    <td class="uni_content"><?php echo os_draw_textarea_field('description','','20','10',$edit_categorie['description'], 'style="width:99%;"'); ?></td>
-  </tr>
-</table>
-
+	<tr>
+		<td class="blog-table blog-table-left"><?php echo NBB_TABLE_HEADING_NEWCATEGORIE_NAME;?></td>
+		<td class="blog-table blog-table-right"><?php echo os_draw_input_field('title', $cat_edit['title'],'size="70"');?></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="blog-table blog-table-left"><?php echo os_draw_textarea_field('description','','20','10',$cat_edit['description'], 'style="width:99%;"'); ?></td>
+	</tr>
+	<tr>
+		<td class="blog-table blog-table-left"><?php echo NBB_TABLE_HEADING_NEWPOST_M_TITLE;?></td>
+		<td class="blog-table blog-table-right"><?php echo os_draw_input_field('m_title', $cat_edit['m_title'],'size="70"');?></td>
+	</tr>
+	<tr>
+		<td class="blog-table blog-table-left"><?php echo NBB_TABLE_HEADING_NEWPOST_M_DESC;?></td>
+		<td class="blog-table blog-table-right"><?php echo os_draw_textarea_field('m_desc','','5','2',$cat_edit['m_desc'], 'style="width:99%;"'); ?></td>
+	</tr>
+	<tr>
+		<td class="blog-table blog-table-left"><?php echo NBB_TABLE_HEADING_NEWPOST_M_KEYWORDS;?></td>
+		<td class="blog-table blog-table-right"><?php echo os_draw_input_field('m_keywords', $cat_edit['m_keywords'],'size="70"');?></td>
+	</tr>
+	<tr>
+		<td class="blog-table blog-table-left"><?php echo NBB_TABLE_HEADING_NEWCATEGORIE_POSITION;?></td>
+		<td class="blog-table blog-table-right"><?php echo os_draw_input_field('position', $cat_edit['position'],'size="4"');?></td>
+	</tr>
+	<tr>
+		<td class="blog-table blog-table-left">Статус</td>
+		<td class="blog-table blog-table-right">
+			<select class="round" name="status" id="status">
+				<option value="1" <?php if ($cat_edit['status'] == '1') {echo "selected";} ?>>Включено</option>
+				<option value="0" <?php if ($cat_edit['status'] == '0') {echo "selected";} ?>>Выключено</option>
+			</select>
 		</td>
-  </tr> 
-
-  <tr>
-    <td class="uni_content" height="20">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="right"><?php echo os_draw_hidden_field('categorie_id', $edit_categorie['id']) . '<input type="submit" class="uni_button" value="Speichern" onClick="return confirm(\''.NBB_UPDATE_ENTRY.'\')">';?></td>
-  </tr> 
-  <tr>
-    <td class="uni_content" height="20">&nbsp;</td>
-  </tr>
+	</tr>
+	<tr>
+		<td colspan="2" class="blog-table blog-table-left">
+			<?php echo os_draw_hidden_field('cat_id', $cat_edit['id']) . '<input type="submit" class="uni_button" value="'.NBB_UPDATE_SAVE.'" />';?>
+		</td>
+	</tr>
 </table>
-
 </form>  
 <?php    
   }
@@ -356,7 +363,7 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 // STARTSEITE
 
 	if($_GET['action'] == 'startsite'){
-		echo os_draw_form('start', FILENAME_PLUGINS_PAGE, 'page=nebox_blog_admin&action=updatestartsite', 'post', '');
+		echo os_draw_form('start', FILENAME_PLUGINS_PAGE, 'page=nebox_blog_admin&action=updatewelcome', 'post', '');
 
 ?>
 
@@ -531,8 +538,7 @@ elseif ($_GET['action'] == 'editpost' || $_GET['action'] == 'newpost')
 	</tr>
 	<tr>
 		<td colspan="2" class="blog-table blog-table-left">
-<?php
-			echo os_draw_hidden_field('post_id',$post['id']).'<input type="submit" class="button" onClick="this.blur();" value="'.NBB_BUTTON_SAVE.'"/>'; ?>
+			<?php echo os_draw_hidden_field('post_id',$post['id']).'<input type="submit" class="button" onClick="this.blur();" value="'.NBB_BUTTON_SAVE.'"/>'; ?>
 			<a onClick="this.blur();" href="<?php echo $nbb_url; ?>"><?php echo NBB_BUTTON_BACK; ?></a>
 		</td>
 	</tr>
