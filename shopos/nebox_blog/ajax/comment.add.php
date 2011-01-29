@@ -26,8 +26,8 @@ if (!$comtext) {
 	$error = "yes";
 }
     
-if(strlen($comtext)>1010) {
-	$log .= "<p>Слишком длинный текст. Разрешено 1000 символов!</p>";
+if(strlen($comtext)>3010) {
+	$log .= "<p>Слишком длинный текст. Разрешено 3000 символов!</p>";
 	$error = "yes";
 }
 
@@ -49,7 +49,7 @@ if($error == "no") {
 
 	$_RESULT['post_id'] = $post_id;
 	$_RESULT['text'] = $comtext;
-	$_RESULT['name'] = $comname;
+	$_RESULT['comname'] = $comname;
 
 } else {
 	$_RESULT['err'] = 'yes';
