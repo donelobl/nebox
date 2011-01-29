@@ -47,9 +47,19 @@ switch($_GET['action'])
 				$delete = os_db_query("DELETE FROM ".DB_NEBOX_BLOG_COMMENTS." WHERE id = '".(int)$_GET['delete_comment']."'");
 				os_redirect($nbb_url.'&action=comments_list');
 			}
-			if ($_GET['delete_comment_all']=='true')
+			elseif ($_GET['delete_comment_all']=='true')
 			{
 				os_db_query("truncate ".DB_NEBOX_BLOG_COMMENTS."");
+				os_redirect($nbb_url.'&action=comments_list');
+			}
+			elseif ($_GET['status_on'])
+			{
+				os_db_query("UPDATE ".DB_NEBOX_BLOG_COMMENTS." SET status = 1 WHERE id = '".(int)$_GET['status_on']."'");
+				os_redirect($nbb_url.'&action=comments_list');
+			}
+			elseif ($_GET['status_off'])
+			{
+				os_db_query("UPDATE ".DB_NEBOX_BLOG_COMMENTS." SET status = 0 WHERE id = '".(int)$_GET['status_off']."'");
 				os_redirect($nbb_url.'&action=comments_list');
 			}
 		}
@@ -415,6 +425,7 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 					<td>Дата</td>
 					<td>Автор</td>
 					<td>Запись</td>
+					<td>Статус</td>
 					<td>Действие</td>
 				</tr>
 		<?php
@@ -422,9 +433,10 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 			$com_query = os_db_query("
 				SELECT 
 					c.id AS com_id,
+					c.name AS user_name,
 					c.text,
 					c.date_added,
-					c.name AS user_name,
+					c.status AS com_status,
 					p.id,
 					p.name 
 				FROM 
@@ -444,6 +456,18 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 					<td width="10%" class="blog-table-list blr"><?php echo $com['date_added']; ?></td>
 					<td width="15%" class="blog-table-list blr"><?php echo $com['user_name']; ?></td>
 					<td width="15%" class="blog-table-list blr"><?php echo $com['name']; ?></td>
+					<td width="15%" class="blog-table-list blr">
+					<?php
+						if ($com['com_status'] == 1)
+						{
+							echo "<a class=\"blog-del\" href=\"".$nbb_url."&action=comments_list&status_off=".$com['com_id']."\">Скрыть</a>";
+						}
+						else
+						{
+							echo "<a class=\"blog-del\" href=\"".$nbb_url."&action=comments_list&status_on=".$com['com_id']."\">Одобрить</a>";
+						}
+					?>
+					</td>
 					<td width="10%" class="blog-table-list">
 						<a class="blog-del" href="<?php echo $nbb_url.'&action=comments_list&delete_comment='.$com['com_id'];?>" onclick="return confirm('Вы действительно хотите удалить комментарий?');">Удалить</a>
 					</td>
