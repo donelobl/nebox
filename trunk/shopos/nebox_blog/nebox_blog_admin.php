@@ -424,7 +424,7 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 					c.id AS com_id,
 					c.text,
 					c.date_added,
-					c.user_id,
+					c.name AS user_name,
 					p.id,
 					p.name 
 				FROM 
@@ -442,7 +442,7 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 					<td width="3%" class="blog-table-list blr"><?php echo $com['com_id'] ; ?></td>
 					<td width="47%" class="blog-table-list blr"><?php echo $com['text'] ; ?></td>
 					<td width="10%" class="blog-table-list blr"><?php echo $com['date_added']; ?></td>
-					<td width="15%" class="blog-table-list blr"><?php echo $com['user_id']; ?></td>
+					<td width="15%" class="blog-table-list blr"><?php echo $com['user_name']; ?></td>
 					<td width="15%" class="blog-table-list blr"><?php echo $com['name']; ?></td>
 					<td width="10%" class="blog-table-list">
 						<a class="blog-del" href="<?php echo $nbb_url.'&action=comments_list&delete_comment='.$com['com_id'];?>" onclick="return confirm('Вы действительно хотите удалить комментарий?');">Удалить</a>

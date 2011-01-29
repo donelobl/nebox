@@ -58,7 +58,7 @@ function nebox_blog_head() {
 
 		post_id = form.post_id.value;
 		text = form.comtext.value;
-		name = form.comname.value;
+		comname = form.comname.value;
 
 		erdiv = document.getElementById("error");
 		erdiv.innerHTML = "Ждите..."
@@ -67,14 +67,14 @@ function nebox_blog_head() {
 			"'.plugurl().'ajax/comment.add.php",{
 				"post_id": post_id,
 				"comtext": text,
-				"comname": name
+				"comname": comname
 			},
 			function (result, errors){
 				if (result.err==\'no\'){
 					erdiv.innerHTML = "";
 
 					td = document.createElement("div");
-					td.innerHTML = "<div class=\"comment-added\"><h3>Спасибо "+result.name+", ваш комментарий добавлен</h3><div class=\"comment-added-content\">"+result.text+"</div></div>";
+					td.innerHTML = "<div class=\"comment-added\"><h3>Спасибо "+result.comname+", ваш комментарий добавлен</h3><div class=\"comment-added-content\">"+result.text+"</div></div>";
 
 					comtb = document.getElementById("comtab");
 					comtb.appendChild(td);
