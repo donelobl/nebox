@@ -3,19 +3,22 @@
 Plugin Name: NeBox Blog
 Plugin URI: http://www.nebox.ru/
 Description: Плагин блога
-Version: 1.1
+Version: 1.2
 Author: NeBox (Посетить блог)
 Author URI: http://www.nebox.ru/
 Plugin Group: Плагины NeBox.ru
 */
 
-define("NBBV",' v1.1 beta');
+define("NBBV",' v1.2 beta');
 define("NBB_PLUGIN",plugdir().'/');
 
 /* Simple Setting
 ---------------------------------------------------*/
 
-// Постов на странице
+// Постов на главной странице
+define("NBBS_NUMBER_OF_POSTS_INDEX", 5);
+
+// Постов на странице в категориях
 define("NBBS_NUMBER_OF_POSTS", 5);
 
 // Шаблон блога

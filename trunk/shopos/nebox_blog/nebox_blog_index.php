@@ -25,6 +25,7 @@ if ((isset($_GET['b_cat']) && is_numeric($_GET['b_cat']))) {
 			p.categories_id = ".(int)$_GET['b_cat']."
 		ORDER BY
 			p.position DESC
+		LIMIT ".NBBS_NUMBER_OF_POSTS."
 	";
 	/*
 	$split = new splitPageResults($posts_query, $_GET['page'], NBBS_NUMBER_OF_POSTS, 'b_cat');
@@ -195,6 +196,64 @@ else
 	$welcome = os_db_fetch_array($welcome_query);
 
 	$osTemplate->assign('WELCOME_TEXT', $welcome['description']);
+
+	$posts_query = "
+		SELECT
+			p.id AS post_id,
+			p.categories_id,
+			p.name AS post_name,
+			p.short_description AS post_short_description,
+			p.status,
+			p.position,
+			p.date_added AS post_date,
+			c.id AS cat_id,
+			c.title AS cat_title
+		FROM 
+			".DB_NEBOX_BLOG_POSTS." p, 
+			".DB_NEBOX_BLOG_CATEGORY." c
+		WHERE 
+			p.status = 1 AND
+			p.categories_id = c.id
+		ORDER BY
+			p.date_added DESC
+		LIMIT ".NBBS_NUMBER_OF_POSTS_INDEX."
+	";
+	$query = os_db_query($posts_query);
+
+	if (NBBS_SEF == true)
+	{
+		$cat_url = _HTTP.'blog/cat/'.$navtrail_cat['id'].'.html';
+	}
+	else
+	{
+		$cat_url = _HTTP.'index.php?page=blog&b_cat='.$navtrail_cat['id'];
+	}
+
+	$module_content = array();
+	while ($posts = os_db_fetch_array($query,true))
+	{
+
+		if (NBBS_SEF == true)
+		{
+			$post_url = _HTTP.'blog/post/'.$posts['post_id'].'.html';
+			$cat_url = _HTTP.'blog/cat/'.$posts['cat_id'].'.html';
+		}
+		else
+		{
+			$post_url = _HTTP.'index.php?page=blog&b_post='.$posts['post_id'];
+			$cat_url = _HTTP.'index.php?page=blog&b_cat='.$posts['cat_id'];
+		}
+	
+		$module_content[]=array
+		(
+			'POST_NAME'  => $posts['post_name'],
+			'POST_SHORT_DESC'  => $posts['post_short_description'],
+			'POST_DATE'  => $posts['post_date'],
+			'CAT_TITLE' => $posts['cat_title'],
+			'POST_URL' => $post_url,
+			'CAT_URL' => $cat_url
+		);
+	}
 }
 
 $osTemplate->assign('language', $_SESSION['language']);
