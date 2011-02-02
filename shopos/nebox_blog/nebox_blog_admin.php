@@ -201,7 +201,7 @@ switch($_GET['action'])
 		);
 		os_db_perform(DB_NEBOX_BLOG_WELCOME, $update_welcome_array, 'update', "id = 1");
 	}
-	os_redirect($nbb_url);
+	os_redirect($nbb_url.'&action=startsite');
 	break;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -365,50 +365,43 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 </form>  
 <?php    
   }
-?>
-<br>
 
-<?php
 // STARTSEITE
 
 	if($_GET['action'] == 'startsite'){
 		echo os_draw_form('start', FILENAME_PLUGINS_PAGE, 'page=nebox_blog_admin&action=updatewelcome', 'post', '');
 
-?>
-
-<table width="100%" border="0" cellpadding="5" cellspacing="1" align="center" style="border-bottom:1px solid #dddddd;">
-<?php
-
   	// EDIT POST
-	$start_query = os_db_query("SELECT id, description AS text FROM ".DB_NEBOX_BLOG_WELCOME." WHERE id = 1"); 
+	$start_query = os_db_query("SELECT * FROM ".DB_NEBOX_BLOG_WELCOME." WHERE id = 1"); 
 
 	$start = os_db_fetch_array($start_query);
 ?>
-  <tr>
-    <td valign="top" colspan="2">
-    
-<table width="100%" border="0" cellpadding="3" cellspacing="1" align="center" style="border:1px solid #dddddd;"> 
-  <tr>
-    <td class="uni_content"><?php echo os_draw_textarea_field('description','','20','10',$start['text'], 'style="width:99%;"'); ?></td>
-  </tr>
-</table>
 
-		</td>
-  </tr> 
-
-  <tr>
-    <td class="uni_content" height="20">&nbsp;</td>
-  </tr>  
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
 	<tr>
-		<td class="uni_content">
+		<td colspan="2" class="blog-table blog-table-left"><?php echo os_draw_textarea_field('description','','20','10',$start['description'], 'style="width:99%;"'); ?></td>
+	</tr>
+	<tr>
+		<td class="blog-table blog-table-left"><?php echo NBB_TABLE_HEADING_NEWPOST_M_TITLE;?></td>
+		<td class="blog-table blog-table-right"><?php echo os_draw_input_field('m_title', $start['m_title'],'size="70"');?></td>
+	</tr>
+	<tr>
+		<td class="blog-table blog-table-left"><?php echo NBB_TABLE_HEADING_NEWPOST_M_DESC;?></td>
+		<td class="blog-table blog-table-right"><?php echo os_draw_textarea_field('m_desc','','5','2',$start['m_desc'], 'style="width:99%;"'); ?></td>
+	</tr>
+	<tr>
+		<td class="blog-table blog-table-left"><?php echo NBB_TABLE_HEADING_NEWPOST_M_KEYWORDS;?></td>
+		<td class="blog-table blog-table-right"><?php echo os_draw_input_field('m_keywords', $start['m_keywords'],'size="70"');?></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="blog-table blog-table-left">
 <?php echo os_draw_hidden_field('id',$start['id']) . '<input type="submit" class="button" onClick="this.blur();" value="'.NBB_BUTTON_SAVE.'"/>'; ?>
-<a class="button" onClick="this.blur();" href="<?php echo $nbb_url; ?>"><?php echo NBB_BUTTON_BACK; ?></a></td>
-	</tr> 
+<a onClick="this.blur();" href="<?php echo $nbb_url; ?>"><?php echo NBB_BUTTON_BACK; ?></a>
+		</td>
+	</tr>
 </table>
 
 </form>
-<br />
-<!-- news bearbeiten ende -->
 
 <!--
 ###########################################################################################################
