@@ -5,7 +5,6 @@ include (dirname(__FILE__).'/lang/'.$_SESSION['language'].'.php');
 
 $nbb_url = os_href_link(FILENAME_PLUGINS_PAGE, 'page=nebox_blog_admin');
 
-// Статусы
 $status = array();
 if($_GET['action'] == 'editcategories')
 {
@@ -19,12 +18,10 @@ $status[] = array('id' => 1, 'text' => NBB_TABLE_FOOTER_STATUS_1);
 $status[] = array('id' => 2, 'text' => NBB_TABLE_FOOTER_STATUS_2);
 $status[] = array('id' => 3, 'text' => NBB_TABLE_FOOTER_STATUS_3);
 
-// Edit
 $listedit = array();
 $listedit[] = array('id' => 0, 'text' => NBB_TABLE_HEADING_ACTION_EDIT_0);
 $listedit[] = array('id' => 1, 'text' => NBB_TABLE_HEADING_ACTION_EDIT);
 
-// CATEGORIES
 $select_categories = array();
 
 $categories_query = os_db_query("SELECT id, title, description FROM ".DB_NEBOX_BLOG_CATEGORY." ORDER BY position ASC"); 
@@ -68,15 +65,13 @@ switch($_GET['action'])
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	case 'set':
 	$max_elements = count($_POST['status']);
-  
-	// OFFLINE
+
 	if ($_POST['set_status'] == 1)
 	{
 		$update_array = array('status' => '0'); 
 
 		for ($i = 0; $i < $max_elements; $i++)
 		{
-			// POSTS OVERVIEW?
 			if ((int)$_GET['cat'])
 			{
 				os_db_perform(DB_NEBOX_BLOG_POSTS, $update_array, 'update', "id = '".$_POST['status'][$i]."'");
@@ -88,7 +83,6 @@ switch($_GET['action'])
 			}
 		}
 
-	// ONLINE
 	}
 	elseif ($_POST['set_status'] == 2)
 	{
@@ -96,7 +90,6 @@ switch($_GET['action'])
 
 		for($i = 0; $i < $max_elements; $i++)
 		{
-			// POSTS OVERVIEW?
 			if ((int)$_GET['cat'])
 			{
 				os_db_perform(DB_NEBOX_BLOG_POSTS, $update_array, 'update', "id = '".$_POST['status'][$i]."'");
@@ -107,14 +100,11 @@ switch($_GET['action'])
 				os_db_perform(DB_NEBOX_BLOG_POSTS, $update_array, 'update', "categories_id = '".$_POST['status'][$i]."'");
 			}
 		}
-
-	// DEL ALL
 	}
 	elseif ($_POST['set_status'] == 3)
 	{
 		for ($i = 0; $i < $max_elements; $i++)
 		{
-			// POSTS OVERVIEW?
 			if ((int)$_GET['cat'])
 			{
 				os_db_query("DELETE FROM ".DB_NEBOX_BLOG_POSTS." where id = '".$_POST['status'][$i]."'");
@@ -126,13 +116,9 @@ switch($_GET['action'])
 			}
 		}
 	}
-
-	// STAY IN FAQ CATEGORIE
 	if ((int)$_GET['cat'])
 	{
 		os_redirect($nbb_url.'&action=showposts&cat='.(int)$_GET['cat']);
-
-	// STAY IN CATEGORIES-OVERVIEW  
 	}
 	else
 	{
@@ -364,19 +350,14 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 </table>
 </form>  
 <?php    
-  }
-
-// STARTSEITE
-
-	if($_GET['action'] == 'startsite'){
+}
+	if($_GET['action'] == 'startsite')
+	{
 		echo os_draw_form('start', FILENAME_PLUGINS_PAGE, 'page=nebox_blog_admin&action=updatewelcome', 'post', '');
 
-  	// EDIT POST
-	$start_query = os_db_query("SELECT * FROM ".DB_NEBOX_BLOG_WELCOME." WHERE id = 1"); 
-
-	$start = os_db_fetch_array($start_query);
+		$start_query = os_db_query("SELECT * FROM ".DB_NEBOX_BLOG_WELCOME." WHERE id = 1"); 
+		$start = os_db_fetch_array($start_query);
 ?>
-
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 	<tr>
 		<td colspan="2" class="blog-table blog-table-left"><?php echo os_draw_textarea_field('description','','20','10',$start['description'], 'style="width:99%;"'); ?></td>
@@ -395,14 +376,12 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 	</tr>
 	<tr>
 		<td colspan="2" class="blog-table blog-table-left">
-<?php echo os_draw_hidden_field('id',$start['id']) . '<input type="submit" class="button" onClick="this.blur();" value="'.NBB_BUTTON_SAVE.'"/>'; ?>
-<a onClick="this.blur();" href="<?php echo $nbb_url; ?>"><?php echo NBB_BUTTON_BACK; ?></a>
+			<?php echo os_draw_hidden_field('id',$start['id']) . '<input type="submit" class="button" onClick="this.blur();" value="'.NBB_BUTTON_SAVE.'"/>'; ?>
+			<a onClick="this.blur();" href="<?php echo $nbb_url; ?>"><?php echo NBB_BUTTON_BACK; ?></a>
 		</td>
 	</tr>
 </table>
-
 </form>
-
 <!--
 ###########################################################################################################
 	КОММЕНТАРИИ
@@ -422,7 +401,6 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 					<td>Действие</td>
 				</tr>
 		<?php
-			//$comments_query_raw = "select * from blog_comment order by date DESC";
 			$com_query = os_db_query("
 				SELECT 
 					c.id AS com_id,
@@ -599,9 +577,6 @@ while ($posts = os_db_fetch_array($posts_query))
 	}
 ?>	
 </table>
-<br>
-
-<!-- LEISTE -->
 <table width="100%" border="0" cellspacing="1" cellpadding="3">
 	<tr>
 		<td width="70" align="center"><?php echo NBB_TABLE_FOOTER_STATUS;?>
@@ -611,7 +586,6 @@ while ($posts = os_db_fetch_array($posts_query))
 	</tr>
 </table>	
 </form>
-
 <?php
 }
 else
@@ -652,8 +626,6 @@ while ($cat = os_db_fetch_array($cat_query))
 }
 ?>
 </table>
-
-<!-- LEISTE -->
 <table width="100%" border="0" cellspacing="0" cellpadding="3">
   <tr>
 		<td width="70" align="center"><?php echo NBB_TABLE_FOOTER_STATUS;?>
@@ -666,16 +638,13 @@ while ($cat = os_db_fetch_array($cat_query))
 <?php
 }
 ?>
-
-
-
 		<div class="mod-copy">
-<?php echo NBB_HEADING_TITLE.NBBV; ?><br />
-В случае всяких проблем - ICQ: 501760, E-mail: templatica.ru@gmail.com<br />
-Плагин реализовал <a href="http://www.shopos.ru/forum/index.php?action=profile;u=2176" target="_blank" title="Мой профиль на форуме">NeBox</a><br />
-Сайты: <a href="http://nebox.ru" target="_blank" title="Мой блог NeBox.ru">Мой блог</a> и <a href="http://templatica.ru" target="_blank" title="Моя студия Templatica.ru">Моя студия</a></div>
+			<?php echo NBB_HEADING_TITLE.NBBV; ?><br />
+			В случае всяких проблем - ICQ: 501760, E-mail: templatica.ru@gmail.com<br />
+			Плагин реализовал <a href="http://www.shopos.ru/forum/index.php?action=profile;u=2176" target="_blank" title="Мой профиль на форуме">NeBox</a><br />
+			Сайты: <a href="http://nebox.ru" target="_blank" title="Мой блог NeBox.ru">Мой блог</a> и <a href="http://templatica.ru" target="_blank" title="Моя студия Templatica.ru">Моя студия</a>
+		</div>
 		</div>
 	</div>
 </div>
-
 <?php $main->bottom(); ?>
