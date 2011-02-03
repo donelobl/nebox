@@ -1,0 +1,11 @@
+<div class="block b-gray">
+	<div class="top"><h3 class="bold">Новое в блоге</h3></div>
+	<div class="cen">
+		<ul class="box-menu">
+			{foreach name=aussen item=box_content from=$box_content}
+			<li><a href="{$box_content.POST_URL}">{$box_content.TITLE}</a></li>
+			{/foreach}
+		</ul>
+	</div>
+	<div class="foo"></div>
+</div>

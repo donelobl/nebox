@@ -1,0 +1,11 @@
+<div class="block b-gray">
+	<div class="top"><h3 class="bold">Категории блога</h3></div>
+	<div class="cen">
+		<ul class="box-menu">
+			{foreach name=aussen item=box_content from=$box_content}
+			<li><a class="{$box_content.CURRENT}" href="{$box_content.CAT_URL}">{$box_content.TITLE}</a></li>
+			{/foreach}
+		</ul>
+	</div>
+	<div class="foo"></div>
+</div>
