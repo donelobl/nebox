@@ -9,6 +9,7 @@ header("Pragma: no-cache");
 require_once(dir_path('class').'JsHttpRequest.php');
 
 $JsHttpRequest = new JsHttpRequest('');
+$JsHttpRequest->setEncoding($_SESSION['language_charset']);
 
 $post_id = (int)$_REQUEST['post_id'];
 $comtext = $_REQUEST['comtext'];
