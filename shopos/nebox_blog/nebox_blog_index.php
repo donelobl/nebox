@@ -220,15 +220,6 @@ else
 	";
 	$query = os_db_query($posts_query);
 
-	if (NBBS_SEF == true)
-	{
-		$cat_url = _HTTP.'blog/cat/'.$navtrail_cat['id'].'.html';
-	}
-	else
-	{
-		$cat_url = _HTTP.'index.php?page=blog&b_cat='.$navtrail_cat['id'];
-	}
-
 	$module_content = array();
 	while ($posts = os_db_fetch_array($query,true))
 	{
