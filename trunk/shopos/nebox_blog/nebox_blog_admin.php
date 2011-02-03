@@ -202,9 +202,9 @@ switch($_GET['action'])
 		$description		= $_POST['description'];
 		$status				= $_POST['status'];
 		$position			= $_POST['position'];
-		$m_title			= $_POST['post_m_title'];
-		$m_desc				= $_POST['post_m_desc'];
-		$m_keywords			= $_POST['post_m_keywords'];
+		$m_title			= $_POST['m_title'];
+		$m_desc				= $_POST['m_desc'];
+		$m_keywords			= $_POST['m_keywords'];
 
 		os_db_query("INSERT INTO ".DB_NEBOX_BLOG_POSTS." (categories_id, title, name, short_description, description, status, position, date_added, m_title,m_desc, m_keywords) VALUES ('{$categories_id}','{$title}','{$name}','{$short_description}','{$description}','{$status}', '{$position}', now(),'{$m_title}','{$m_desc}','{$m_keywords}')");
 	}
@@ -217,9 +217,9 @@ switch($_GET['action'])
 		$description		= $_POST['description'];
 		$status				= $_POST['status'];
 		$position			= $_POST['position'];
-		$m_title			= $_POST['post_m_title'];
-		$m_desc				= $_POST['post_m_desc'];
-		$m_keywords			= $_POST['post_m_keywords'];
+		$m_title			= $_POST['m_title'];
+		$m_desc				= $_POST['m_desc'];
+		$m_keywords			= $_POST['m_keywords'];
 		os_db_query("UPDATE ".DB_NEBOX_BLOG_POSTS." SET categories_id = '$categories_id', title = '$title', name = '$name', short_description = '$short_description', description = '$description', status = '$status', position = '$position', date_added = now(), m_title = '$m_title',m_desc = '$m_desc', m_keywords = '$m_keywords' WHERE id = ".$_POST['post_id']."");
 	}
 	os_redirect($nbb_url.'&action=showposts&cat='.$_POST['categories_id']);
