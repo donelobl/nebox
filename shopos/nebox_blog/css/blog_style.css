@@ -1,0 +1,28 @@
+.wrapper-content {width:100%;background:#f4fdff;}
+.wrap-con {padding:0 10px 0 10px;}
+.clear {clear:both;}
+
+.msg-success {padding:10px;color:#ffffff;background:#589b43;}
+
+.wrap-con h1 {float:left;font-size:1.2em;}
+.right-top-menu {float:right;font-size:0.9em;}
+.right-top-menu li {list-style:none;display:inline;}
+.right-top-menu li a {padding:4px 8px 4px 8px;color:#456e90;background:#c5def2;}
+.right-top-menu li a:hover {text-decoration:none;color:#ffffff;background:#456e90;}
+
+.blog-button {padding:3px 10px 3px 10px;font-size:1em;cursor:pointer;margin:10px 0 10px 0;}
+a.blog-del {color:red;text-align:center;}
+a.blog-del-big {text-align:center;margin:10px 0 10px 0;display:block;width:200px;padding:4px 8px 4px 8px;background:#c5def2;color:#456e90;}
+a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
+
+.blog-table {padding:5px;font-size:0.9em;background:#ffffff;border-bottom:1px solid #b6cddb;}
+.blog-table.blog-table-left {width:35%;}
+.blog-table.blog-table-right {border-left:1px solid #dcebf5;}
+.blog-table-note {font-size:0.8em;color:#9ea5b1;}
+
+.blog-table-head td {padding:5px;font-size:0.9em;background:#c7e0f0;font-weight: bold;}
+.blog-table-list {padding:5px;font-size:0.9em;background:#ffffff;border-bottom:1px solid #b6cddb;}
+.blr {border-right:1px solid #b6cddb;}
+
+.mod-copy {font-size:0.7em;text-align:center;padding:10px;}
+.mod-copy a {font-size:1em;}

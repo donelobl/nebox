@@ -3,13 +3,13 @@
 Plugin Name: NeBox Blog
 Plugin URI: http://www.nebox.ru/
 Description: Плагин блога
-Version: 1.2
+Version: 1.3
 Author: NeBox (Посетить блог)
 Author URI: http://www.nebox.ru/
 Plugin Group: Плагины NeBox.ru
 */
 
-define("NBBV",' v1.2 beta');
+define("NBBV",' v1.3 beta');
 define("NBB_PLUGIN",plugdir().'/');
 
 /* Simple Setting
@@ -21,7 +21,7 @@ define("NBBS_NUMBER_OF_POSTS_INDEX", 5);
 // Постов на странице в категориях
 define("NBBS_NUMBER_OF_POSTS", 5);
 
-// Шаблон блога
+// Шаблон блога - default or cleanshop
 define("NBBS_THEME", "default");
 
 // ЧПУ ссылки
@@ -89,31 +89,37 @@ function nebox_blog_head() {
 			true
 		)
 	}
-$(document).ready(function() {
-	$(\'.delete_comm\').live("click",function(){
-		var ID = $(this).attr("id");
-		var dataString = \'id=\'+ ID;
-		if (confirm("Вы уверены, что хотите удалить комментарий?")){
-			$.ajax({
-				type:		"POST",
-				url:		"'.plugurl().'ajax/comment.del.php",
-				data:		dataString,
-				cache:		false,
-				success:	function(html){
-					$(".comm"+ID).slideUp(\'slow\', function() {$(this).remove();});
+</script>');
+if ($_SESSION['customers_status']['customers_status_id'] == 0)
+{
+	_e('<script type="text/javascript" >
+		$(document).ready(function() {
+			$(\'.delete_comm\').live("click",function(){
+				var ID = $(this).attr("id");
+				var dataString = \'id=\'+ ID;
+				if (confirm("Вы уверены, что хотите удалить комментарий?")){
+					$.ajax({
+						type:		"POST",
+						url:		"'.plugurl().'ajax/comment.del.php",
+						data:		dataString,
+						cache:		false,
+						success:	function(html){
+							$(".comm"+ID).slideUp(\'slow\', function() {$(this).remove();});
+						}
+					});
 				}
+				return false;
 			});
-		}
-		return false;
-	});
-});
+		});
 	</script>');
+}
 }
 function nebox_blog_admin()
 {
 	function nebox_blog_admin_head()
 	{ 
-		// Empty
+		_e('<link rel="stylesheet" type="text/css" href="'.plugurl().'css/blog_style.css" />');
+		_e('<script src="'.plugurl().'js/blog_admin.js" type="text/javascript"></script>');
 	}
 	include (dirname(__FILE__).'/nebox_blog_admin.php');
 }
