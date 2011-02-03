@@ -10,6 +10,7 @@ define('NBB_TABLE_HEADING_NAVIGATION_OVERVIEW','Главная');
 define('NBB_TABLE_HEADING_NAVIGATION_NEWCATEGORIE','Новая категория');
 define('NBB_TABLE_HEADING_NEWCATEGORIE_STATUS','Статусы');
 define('NBB_TABLE_HEADING_NAVIGATION_NEWPOST','Новый пост');
+define('NBB_TABLE_HEADING_NAVIGATION_COMMENTS','Комментарии');
 define('NBB_TABLE_HEADING_NAVIGATION_STARTSITE','Страница приведствия');
 
 define('NBB_TABLE_HEADING_EDIT_ALL','Редактировать все подкатегории??');
@@ -39,10 +40,38 @@ define('NBB_TABLE_HEADING_NEWCATEGORIE_DATE_ADDED','Дата');
 define('NBB_TABLE_HEADING_NEWPOST_NAME','Заголовок');
 define('NBB_TABLE_HEADING_NEWPOST_TITLE','Заголовок для бокса');
 
-define('NBB_TABLE_HEADING_NEWPOST_M_TITLE','Meta Title');
-define('NBB_TABLE_HEADING_NEWPOST_M_DESC','Meta Description');
-define('NBB_TABLE_HEADING_NEWPOST_M_KEYWORDS','Meta Keywords');
+// COMMENTS
+define('NBB_COMM_COMMENTS','Комментарий');
+define('NBB_COMM_DATA','Дата');
+define('NBB_COMM_AUTHOR','Автор');
+define('NBB_COMM_TEXT','Запись');
+define('NBB_COMM_STATUS','Статус');
+define('NBB_COMM_ACTION','Действие');
+define('NBB_COMM_ACTION_HIDE','Скрыть');
+define('NBB_COMM_ACTION_SHOW','Показать');
+define('NBB_COMM_ACTION_DEL','Удалить');
+define('NBB_COMM_ACTION_DEL_CONFIRM','Вы действительно хотите удалить комментарий?');
+define('NBB_COMM_ACTION_DEL_ALL','Удалить все комментарии');
+define('NBB_COMM_ACTION_DEL_ALL_CONFIRM','Вы действительно хотите удалить все комментарии?');
+
+define('NBB_TABLE_HEADING_NEWPOST_M_TITLE','Мета заголовок');
+define('NBB_TABLE_HEADING_NEWPOST_M_DESC','Мета описание');
+define('NBB_TABLE_HEADING_NEWPOST_M_KEYWORDS','Мета ключевые слова');
 
 define('NBB_BUTTON_SAVE','Сохранить');
 define('NBB_BUTTON_BACK','Вернуться');
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

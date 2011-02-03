@@ -243,52 +243,6 @@ switch($_GET['action'])
 $main->head();
 $main->top_menu();
 ?>
-<script type="text/javascript">
-<!--
-function checkboxes(wert){
-	var my = document.leiste;
-	var len = my.length;
-	
-	for (var i = 0; i < len; i++) {
-		var e = my.elements[i];
-		if (e.name == "status[]") {
-			e.checked = wert;
-		}
-	}
-}
-//-->
-</script>
-<style>
-.wrapper-content {width:100%;background:#f4fdff;}
-.wrap-con {padding:0 10px 0 10px;}
-.clear {clear:both;}
-
-.msg-success {padding:10px;color:#ffffff;background:#589b43;}
-
-.wrap-con h1 {float:left;font-size:1.2em;}
-.right-top-menu {float:right;font-size:0.9em;}
-.right-top-menu li {list-style:none;display:inline;}
-.right-top-menu li a {padding:4px 8px 4px 8px;color:#456e90;background:#c5def2;}
-.right-top-menu li a:hover {text-decoration:none;color:#ffffff;background:#456e90;}
-
-.blog-button {padding:3px 10px 3px 10px;font-size:1em;cursor:pointer;margin:10px 0 10px 0;}
-a.blog-del {color:red;text-align:center;}
-a.blog-del-big {text-align:center;margin:10px 0 10px 0;display:block;width:200px;padding:4px 8px 4px 8px;background:#c5def2;color:#456e90;}
-a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
-
-.blog-table {padding:5px;font-size:0.9em;background:#ffffff;border-bottom:1px solid #b6cddb;}
-.blog-table.blog-table-left {width:35%;}
-.blog-table.blog-table-right {border-left:1px solid #dcebf5;}
-.blog-table-note {font-size:0.8em;color:#9ea5b1;}
-
-.blog-table-head td {padding:5px;font-size:0.9em;background:#c7e0f0;font-weight: bold;}
-.blog-table-list {padding:5px;font-size:0.9em;background:#ffffff;border-bottom:1px solid #b6cddb;}
-.blr {border-right:1px solid #b6cddb;}
-
-.mod-copy {font-size:0.7em;text-align:center;padding:10px;}
-.mod-copy a {font-size:1em;}
-</style>
-
 <div class="wrapper-content">
 	<div class="wrap-con">
 		<h1><?php echo NBB_HEADING_TITLE.' ('.NBB_CONTENT_NOTE; ?>)</h1>
@@ -296,7 +250,7 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 			<li><a href="<?php echo $nbb_url.'">'.NBB_TABLE_HEADING_NAVIGATION_OVERVIEW; ?></a></li>
 			<li><a href="<?php echo $nbb_url.'&action=newcategorie">'.NBB_TABLE_HEADING_NAVIGATION_NEWCATEGORIE; ?></a></li>
 			<li><a href="<?php echo $nbb_url.'&action=newpost">'.NBB_TABLE_HEADING_NAVIGATION_NEWPOST; ?></a></li>
-			<li><a href="<?php echo $nbb_url.'&action=comments_list'; ?>">Комментарии</a></li>
+			<li><a href="<?php echo $nbb_url.'&action=comments_list">'.NBB_TABLE_HEADING_NAVIGATION_COMMENTS; ?></a></li>
 			<li><a href="<?php echo $nbb_url.'&action=startsite">'.NBB_TABLE_HEADING_NAVIGATION_STARTSITE; ?></a></li>
 		</ul>
 		<div class="clear"></div>
@@ -393,12 +347,12 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 			<table border="0" cellspacing="0" cellpadding="0" width="100%">
 				<tr class="blog-table-head">
 					<td>#</td>
-					<td>Комментарий</td>
-					<td>Дата</td>
-					<td>Автор</td>
-					<td>Запись</td>
-					<td>Статус</td>
-					<td>Действие</td>
+					<td><?php echo NBB_COMM_COMMENTS;?></td>
+					<td><?php echo NBB_COMM_DATA;?></td>
+					<td><?php echo NBB_COMM_AUTHOR;?></td>
+					<td><?php echo NBB_COMM_TEXT;?></td>
+					<td><?php echo NBB_COMM_STATUS;?></td>
+					<td><?php echo NBB_COMM_ACTION;?></td>
 				</tr>
 		<?php
 			$com_query = os_db_query("
@@ -431,22 +385,22 @@ a:hover.blog-del-big {background:red;color:#ffffff;text-decoration:none;}
 					<?php
 						if ($com['com_status'] == 1)
 						{
-							echo "<a class=\"blog-del\" href=\"".$nbb_url."&action=comments_list&status_off=".$com['com_id']."\">Скрыть</a>";
+							echo "<a class=\"blog-del\" href=\"".$nbb_url."&action=comments_list&status_off=".$com['com_id']."\">".NBB_COMM_ACTION_HIDE."</a>";
 						}
 						else
 						{
-							echo "<a class=\"blog-del\" href=\"".$nbb_url."&action=comments_list&status_on=".$com['com_id']."\">Одобрить</a>";
+							echo "<a class=\"blog-del\" href=\"".$nbb_url."&action=comments_list&status_on=".$com['com_id']."\">".NBB_COMM_ACTION_SHOW."</a>";
 						}
 					?>
 					</td>
 					<td width="10%" class="blog-table-list">
-						<a class="blog-del" href="<?php echo $nbb_url.'&action=comments_list&delete_comment='.$com['com_id'];?>" onclick="return confirm('Вы действительно хотите удалить комментарий?');">Удалить</a>
+						<a class="blog-del" href="<?php echo $nbb_url.'&action=comments_list&delete_comment='.$com['com_id'];?>" onclick="return confirm('<?php echo NBB_COMM_ACTION_DEL_CONFIRM; ?>');"><?php echo NBB_COMM_ACTION_DEL; ?></a>
 					</td>
 				</tr>
 		<?php } ?>
 				<tr>
 					<td colspan="6">
-						<a class="blog-del-big" href="<?php echo $nbb_url.'&action=comments_list&delete_comment_all=true';?>" onclick="return confirm('Вы действительно хотите удалить все комментарии?');">Удалить все комментарии</a>
+						<a class="blog-del-big" href="<?php echo $nbb_url.'&action=comments_list&delete_comment_all=true';?>" onclick="return confirm('<?php echo NBB_COMM_ACTION_DEL_ALL_CONFIRM; ?>');"><?php echo NBB_COMM_ACTION_DEL_ALL; ?></a>
 					</td>
 				</tr> 
 			</table>
