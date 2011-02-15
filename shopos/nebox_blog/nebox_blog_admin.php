@@ -26,8 +26,6 @@ $select_categories = array();
 
 $categories_query = os_db_query("SELECT id, title, description FROM ".DB_NEBOX_BLOG_CATEGORY." ORDER BY position ASC"); 
 
-$select_categories[] = array('id' => 0, 'text' => NBB_TABLE_FOOTER_STATUS_0); 
-
 while($categories = os_db_fetch_array($categories_query))
 {
 	$select_categories[] = array('id' => $categories['id'], 'text' => $categories['title'], 'description' => $categories['description']);
