@@ -1,0 +1,55 @@
+				<div class="content-block">
+					<div class="ttc"><div class="ttl"></div>
+						<div class="content-title">
+							<h2 class="bold upp">Карта сайта</h2>
+						</div>
+					<div class="ttr"></div></div>
+					<div class="content-block-content">
+					
+					
+					
+						<ul class="table-sm">
+							<li class="content-title"><h2>Категории и товары</h2></li>
+							{foreach name=aussen item=module_data from=$module_content}
+							<li class="title">
+								{if $module_data.CAT_IMAGE}<a href="{$module_data.CAT_LINK}" title="{$module_data.CAT_NAME}"><img class="cat-img" src="{$module_data.CAT_IMAGE}" alt="{$module_data.CAT_NAME}"></a>{/if}
+								<a href="{$module_data.CAT_LINK}" title="{$module_data.CAT_NAME}">{$module_data.CAT_NAME}</a>
+								<p class="cat-descr">{$module_data.CAT_DESC}</p>
+								<div class="clear"></div>
+							</li>
+							{if $module_data.PROD}
+							{foreach key=pid item=prods from=$module_data.PROD}
+							<li class="prod {cycle values="bg1,bg2"}">{$prods.productslink}</li>
+							{/foreach}
+							{/if}
+							{foreach key=key_data item=item_data from=$module_data.SCATS}
+							<li class="title title-{$item_data.level}"><a href="{$item_data.link}" title="{$item_data.text}">{$item_data.text}</a></li>
+							{if $item_data.products}
+							{foreach key=pid item=prods from=$item_data.products}
+							<li class="prod prod-{$item_data.level} {cycle values="bg1,bg2"}">{$prods.productslink}</li>
+							{/foreach}
+							{/if}
+							{/foreach}
+						{/foreach}
+						</ul>
+
+						{if $SITEMAP_CONTENT}
+						<ul class="table-sm content">
+							<li class="content-title"><h2>Информационные страницы</h2></li>
+							{$SITEMAP_CONTENT}
+						</ul>
+						{/if}
+
+						{if $SITEMAP_NEWS}
+						<ul class="table-sm news">
+							<li class="content-title"><h2>Новости</h2></li>
+							{$SITEMAP_NEWS}
+						</ul>
+						{/if}
+						
+						
+						
+						<div class="clear"></div>
+					</div>
+					<div class="cbc"><div class="cbl"></div><div class="cbr"></div></div>
+				</div>

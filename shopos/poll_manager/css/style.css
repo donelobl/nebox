@@ -1,0 +1,41 @@
+.wrapper-content {width:100%;background:#f4fdff;}
+.wrap-con {padding:0 10px 0 10px;}
+.clear {clear:both;}
+.upp {text-transform:uppercase;}
+.msg-success {padding:10px;color:#ffffff;background:#589b43;}
+
+.br3 { -moz-border-radius:3px;border-radius:3px;-webkit-border-radius:3px;-khtml-border-radius:3px;}
+.br6 { -moz-border-radius:6px;border-radius:6px;-webkit-border-radius:6px;-khtml-border-radius:6px;}
+
+.wrap-con h1 {float:left;font-size:1.4em;}
+.right-top-menu {float:right;font-size:0.9em;}
+.right-top-menu li {list-style:none;display:inline;}
+.right-top-menu li a {padding:4px 8px 4px 8px;color:#456e90;background:#c5def2;}
+.right-top-menu li a:hover {text-decoration:none;color:#ffffff;background:#456e90;}
+
+.button-submit {padding:3px 10px 3px 10px;font-size:0.8em;cursor:pointer;margin:5px 0 5px 0;background:#ffffff;border:1px solid #b6cddb;}
+.button-submit:hover {background:#b6cddb;}
+
+.blog-table-head td {padding:5px;font-size:0.7em;color:#ffffff;background:#436981;font-weight: bold;}
+.blog-table-list td {padding:5px;font-size:0.7em;border-bottom:1px solid #b6cddb;}
+.blr {border-right:1px solid #b6cddb;}
+
+.col-1 {background:#ffffff;}
+.col-2 {background:#edeef7;}
+.col-3 {background:#f5f7ed;}
+
+h3.poll-name {font-size:0.9em;background:#ffffff;padding:5px;margin:0;display:block;}
+
+
+a.color-s {padding:2px 0 2px 18px;width:16px;height:16px;background: url(../img/color.png) no-repeat 0 1px;}
+
+.poll_heading_question {margin-bottom:10px; font-weight:bold;font-family:Verdana, Arial, sans-serif; font-size:12px; color:#666666;}
+.poll_heading_fieldset {font-family:Verdana, Arial, sans-serif; font-size:10px; color:#000000;}
+.poll_heading {font-family:Verdana, Arial, sans-serif; font-size:10px; color:#000000;background-color:#dddddd;}
+.poll_content {font-family:Verdana, Arial, sans-serif; font-size:10px; color:#000000;}
+.header_poll  {background-color: #dddddd; border-bottom: 2px solid #ffffff; font-family:Verdana, Arial, sans-serif; font-size:10px; color:#000000;}
+.content_poll  {border-bottom: 1px solid #ffffff; font-family:Verdana, Arial, sans-serif; font-size:9px; color:#000000;}
+.header_poll_item {background-color:#666666; border-bottom: 2px solid #ffffff; font-family:Verdana, Arial, sans-serif; font-size:10px; color:#ffffff;}
+.poll_input {padding:2px; border:0px; background-color:#ffffff; color:#cc0000; font-family: Verdana, Arial, sans-serif; font-size:10px;}
+.poll_select {border:0px; background-color:#ffffff; color:#cc0000; font-family: Verdana, Arial, sans-serif; font-size:10px;}
+
