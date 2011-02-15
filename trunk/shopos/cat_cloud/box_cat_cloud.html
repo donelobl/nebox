@@ -1,0 +1,45 @@
+<style>
+{literal}
+
+/*
+a.cat-cloud1 {font-size:10px;}
+a.cat-cloud2 {font-size:11px;}
+a.cat-cloud3 {font-size:13px;}
+a.cat-cloud4 {font-size:15px;}
+a.cat-cloud5 {font-size:17px;}
+a.cat-cloud6 {font-size:19px;}
+a.cat-cloud7 {font-size:21px;}
+a.cat-cloud8 {font-size:23px;}
+a.cat-cloud9 {font-size:25px;}
+a.cat-cloud10 {font-size:27px;}
+
+
+ul {margin-top: 50px;list-style-type: none;}
+li {float: left;}
+ul li a {text-decoration: none;line-height: 2.3em;}
+ul li a.size1 {color: #666;padding: 2px;}
+ul li a.size1:hover {background-color: #999;color: white;}
+ul li a.size2 {color: #912600;padding: 12px;}
+ul li a.size2:hover {background-color: #cc3500;color: white;}
+ul li a.size3 {color: #877900;padding: 18px;}
+ul li a.size3:hover {background-color: #d8c100;color: white;}
+ul li a.size4 {color: #1d6c01;padding: 8px;}
+ul li a.size4:hover {background-color: #2daf00;color: white;}
+ul li a.size5 {color: #004e6b;padding: 6px;}
+ul li a.size5:hover {background-color: #007ead;color: white;}
+ul li a.size6 {color: #430069;padding: 24px;}
+ul li a.size6:hover {background-color: #7600b9;color: white;}
+*/
+{/literal}
+</style>
+			<div class="block-right all2">
+				<div class="block-right-top2">
+					<h3 class="upp bold">{$cat_title}</h3>
+				</div>
+				<div class="block-right-content center">
+					{foreach name=aussen item=box_content from=$box_content}
+						<a class="cat-cloud{$box_content.SIZE}" href="{$box_content.LINK}" title="{$box_content.TITLE}">{$box_content.NAME}</a>{$box_content.SEP}
+					{/foreach}
+				</div>
+				<div class="block-right-foo"></div>
+			</div>

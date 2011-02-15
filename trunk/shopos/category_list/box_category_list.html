@@ -1,0 +1,37 @@
+{php}if (substr(basename($_SERVER['REDIRECT_URL']), 0, 9)=='index.php'  && empty($_SERVER['QUERY_STRING'])){ {/php}
+<table cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td class="hd bf" align="left">{$category_list_title}</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		{foreach name=aussen item=box_content from=$box_content}
+		{php} $col++; {/php} 
+		<td class="main" width="33%" valign="top">
+			<table border="0" width="100%" cellspacing="0" cellpadding="0">
+				<tr>
+					<td align="center" style="border:1px solid #cccccc;padding:5px;background:#eeeeee;">
+						<center>
+						<a style="display:block;" href="{$box_content.CATEGORY_LINK}">
+						{if $box_content.CATEGORY_IMAGE}<img src="{$box_content.CATEGORY_IMAGE}" alt="{$box_content.CATEGORY_NAME}"><br />{/if}
+						<strong>{$box_content.CATEGORY_NAME}</strong>
+						<br />
+						{$box_content.CATEGORY_DESCRIPTION}
+						</a>
+						</center>
+					</td>
+					<td class="contents" align="right"></td>
+				</tr>
+			</table>
+		</td>
+		{php} 
+		if ($col>=3) { 
+			$col=0; 
+			echo '</tr><tr>';
+		} 
+		{/php} 
+		{/foreach}
+	</tr>
+</table>
+{php} } {/php}

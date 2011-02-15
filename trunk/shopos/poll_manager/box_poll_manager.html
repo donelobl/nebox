@@ -1,0 +1,37 @@
+<table class="adn"><tr><td class="hd bf">{$poll_manager_title}</td></tr></table>
+<table class="adn"><tr><td class="hdb">
+{counter start=0 skip=1 print=false}
+{foreach name=poll item=poll_data from=$poll_questions}	  
+  <div class="poll_question">{counter}. {$poll_data.POLL_QUESTION}</div>
+  
+{$FORM}
+<table border="0" width="100%">
+
+{foreach key=key_data item=item_data from=$poll_data.ITEMS}
+  <tr>
+    <td width="1">{$item_data.ITEM_RADIO_FIELD}</td>
+    <td colspan="2"> {$poll_data.POLL_ID}<strong>{$item_data.ITEM_TITLE}</strong></td>
+  </tr>
+{if $item_data.ITEM_HITS_SKALA > 0 and $item_data.ITEM_HITS_TEXT}  
+  <tr>
+    <td colspan="2"><div style="height:5px;background-color:{$item_data.ITEM_COLOR};width:{$item_data.ITEM_HITS_SKALA}%;">&nbsp;</div></td>
+  </tr> 
+{elseif $item_data.ITEM_HITS_SKALA == 0 and $item_data.ITEM_HITS_TEXT}
+  <tr>
+    <td colspan="2"><div style="height:5px;background-color:{$item_data.ITEM_COLOR};width:1%;">&nbsp;</div></td>
+  </tr>
+{/if}  
+{if $item_data.ITEM_HITS_TEXT}  
+  <tr>
+    <td colspan="2">{$item_data.ITEM_HITS_TEXT}</td>
+  </tr> 
+{/if}
+{/foreach}
+  <tr>
+    <td colspan="2">{$poll_data.POLL_BUTTON}</td>
+  </tr> 
+</table>
+<div class="poll_line"></div>
+{$FORM_END}
+{/foreach}
+</td></tr></table>
