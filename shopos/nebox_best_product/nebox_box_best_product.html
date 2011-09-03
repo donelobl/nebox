@@ -1,0 +1,42 @@
+<table class="adn">
+	<tr>
+		<td class="hd bf">{$best_product_title}</td>
+	</tr>
+</table>
+
+<table class="adn">
+	<tr>
+		<td class="hdb vcent">
+			<table border="0" width="100%" cellspacing="0" cellpadding="0" class="infoBoxContents">
+				<tr>
+					<td style="text-align:center;padding:5px;"><a href="{$LINK}"><strong>{$TITLE}</strong></a></td>
+				</tr>
+				{if $best_product_show_img == 'true'}
+				<tr>
+					<td style="text-align:center;padding:5px;"><a href="{$LINK}"><img src="{$IMG}" alt="{$TITLE}" title="{$TITLE}" /></a></td>
+				</tr>
+				{/if}
+				{if $best_product_show_descr == 'true'}
+				<tr>
+					<td style="text-align:center;padding:5px;">{$DESCRIPTION}</td>
+				</tr>
+				{/if}
+				{if $best_product_show_cat == 'true'}
+				<tr>
+					<td style="text-align:center;padding:5px;">В категории: <a href="{$CAT_LINK}">{$CAT_TITLE}</a></td>
+				</tr>
+				{/if}
+				{if $best_product_show_price == 'true'}
+				<tr>
+					<td style="text-align:center;padding:5px;"><strong>{$PRICE}</strong></td>
+				</tr>
+				{/if}
+				{if $best_product_show_buy == 'true'}
+				<tr>
+					<td style="text-align:center;padding:5px;"><a href="{$BUY_NOW}"><strong>Купить!</strong></a></strong></td>
+				</tr>
+				{/if}
+			</table>
+		</td>
+	</tr>
+</table>

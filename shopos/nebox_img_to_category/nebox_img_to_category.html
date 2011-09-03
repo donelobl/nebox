@@ -1,0 +1,9 @@
+{if !empty($cPath)}
+	{if $text}
+		{$text}
+	{else}
+		{if $link}<a href="{$link}" title="{if $title}{$title}{/if}">{/if}
+		{if $img}<img src="{$img}" alt="{if $title}{$title}{/if}" title="{if $title}{$title}{/if}" />{/if}
+		{if $link}</a>{/if}
+	{/if}
+{/if}
